@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Template</title>
+</head>
+<body>
+    <header th:fragment="header">
+        <h1 th:text="#{template.title}">Title</h1>
+    </header>
+
+    <footer th:fragment="footer">
+        <div>
+            <br/>
+            <a th:href="@{/(lang=es)}">ES</a>
+            <a th:href="@{/(lang=en)}">EN</a>
+        </div>
+        <span> [[#{template.footer}]]</span>
+        <form method="post" th:action="@{/logout}">
+            <a href="#" onclick="this.parentNode.submit()">[[#{action.logout}]]</a>
+        </form>
+    </footer>
+</body>
+</html>
