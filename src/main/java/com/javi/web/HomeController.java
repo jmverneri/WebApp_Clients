@@ -6,6 +6,8 @@ import com.javi.service.IPersonService;
 import com.javi.service.PersonServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,9 +24,9 @@ public class HomeController {
     private IPersonService personService;
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model, @AuthenticationPrincipal User user){
          var persons = personService.listPersons();
-
+         log.info("Logged user" + user);
          model.addAttribute("persons", persons);
         return "index";
     }

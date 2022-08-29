@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Template</title>
@@ -17,6 +18,8 @@
         </div>
         <span> [[#{template.footer}]]</span>
         <form method="post" th:action="@{/logout}">
+            <b>User:</b> <span sec:authentication="name">User Logged</span> |
+            <b>Roles:</b><span sec:authentication="principal.authorities">Roles</span>  |
             <a href="#" onclick="this.parentNode.submit()">[[#{action.logout}]]</a>
         </form>
     </footer>
