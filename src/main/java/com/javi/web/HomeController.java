@@ -28,6 +28,12 @@ public class HomeController {
          var persons = personService.listPersons();
          log.info("Logged user" + user);
          model.addAttribute("persons", persons);
+         var totalBalance = 0D;
+         for(var p : persons){
+             totalBalance += p.getBalance();
+         }
+         model.addAttribute("totalBalance", totalBalance);
+         model.addAttribute("totalClients", persons.size());
         return "index";
     }
 
@@ -45,7 +51,7 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping("/modify/{idPerson}")
+    @GetMapping("/modify")
     public String modify(Person person, Model model){
         person = personService.findPerson(person);
         model.addAttribute("person", person);

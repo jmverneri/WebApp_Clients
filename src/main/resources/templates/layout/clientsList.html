@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients List</title>
+</head>
+<body>
+        <section th:fragment="clientsList" id="clients">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{person.title-list}]]</h4>
+                            </div>
+                            <div th:if="${persons != null and !persons.isEmpty()}">
+                                <table class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{person.name}">Name</th>
+                                            <th th:text="#{person.balance}">Balance</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="person, counter : ${persons}">
+                                            <td>[[${counter.count}]]</td>
+                                            <td>[[${person.name} + ' ' + ${person.surname}]]</td>
+                                            <td>[[${new java.text.DecimalFormat('$#,##0.00').format(person.balance)}]]</td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/modify(idPerson=${person.idPerson})}"
+                                                class="btn btn-secondary">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{action.update}]]
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/delete(idPerson=${person.idPerson})}"
+                                                   class="btn btn-secondary">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{action.delete}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${persons == null or persons.isEmpty()}">
+                                <span th:text="#{person.emptyList}">Empty List</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-danger text-white mb-3">
+                            <div class="card-body">
+                                <h3 th:text="#{person.totalBalance}">Total Balance</h3>
+                                <h4 class="display-4">
+                                    [[${new java.text.DecimalFormat('$#,##0.00').format(totalBalance)}]]
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card text-center bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h3 th:text="#{person.totalClients}">Total Clients</h3>
+                                <h4 class="display-4">
+                                    <i class="fas fa-user"></i> [[${totalClients}]]
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</body>
+</html>

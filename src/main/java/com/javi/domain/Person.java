@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data   ///It creates getter, setter, constructor, etc
@@ -17,11 +18,14 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPerson;
     @NotEmpty
-    public String name;
+    private String name;
     @NotEmpty
-    public String surname;
+    private String surname;
     @NotEmpty
     @Email
-    public String email;
-    public String phone;
+    private String email;
+    private String phone;
+
+    @NotNull
+    private Double balance;
 }
