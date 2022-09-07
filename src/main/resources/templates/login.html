@@ -40,6 +40,16 @@
         </div>
     </section>
 
-    <footer th:replace="layout/template :: footer"></footer>
+<footer th:fragment="footer" class="bg-warning text-white mt-5 p-5">
+    <div class="container">
+        <div class="col">
+            <p class="lead text-center">
+                <a th:href="@{/login/(lang=es)}">ES</a> |
+                <a th:href="@{/login/(lang=en)}">EN</a>
+                <span> [[#{template.footer}]] &copy</span>
+            </p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
